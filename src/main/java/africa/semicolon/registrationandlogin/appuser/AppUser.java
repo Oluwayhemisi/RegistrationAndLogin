@@ -9,13 +9,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.Collection;
 import java.util.Collections;
 
 
 @Getter
 @Setter
- @EqualsAndHashCode
+@EqualsAndHashCode
 @NoArgsConstructor
 @Entity
 
@@ -26,6 +27,9 @@ public class AppUser implements UserDetails {
     private Long id;
     private String name;
     private String username;
+
+    @Email
+    @Column(unique = true)
     private String email;
     private String password;
 
