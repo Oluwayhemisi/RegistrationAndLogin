@@ -19,14 +19,13 @@ import java.util.Collections;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-
 public class AppUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,
     generator = "user_sequence")
     private Long id;
-    private String name;
-    private String username;
+    private String firstName;
+    private String lastName;
 
     @Email
     @Column(unique = true)
@@ -38,14 +37,22 @@ public class AppUser implements UserDetails {
     private boolean enabled;
     private boolean locked;
 
-    public AppUser(String name, String username, String email, String password, AppUserRole appUserRole, boolean enabled, boolean locked) {
-        this.name = name;
-        this.username = username;
+    public AppUser(String firstName, String lastName, String email, String password, AppUserRole appUserRole, boolean enabled, boolean locked) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
         this.enabled = enabled;
         this.locked = locked;
+    }
+
+    public AppUser(String firstName, String lastName, String email, String password, AppUserRole user) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.appUserRole = appUserRole;
     }
 
     @Override
@@ -61,7 +68,15 @@ public class AppUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getFirstName(){
+        return firstName;
     }
 
     @Override
